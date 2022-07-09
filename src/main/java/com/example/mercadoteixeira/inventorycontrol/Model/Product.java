@@ -1,4 +1,4 @@
-package com.example.mercadoteixeira.inventorycontrol.DB;
+package com.example.mercadoteixeira.inventorycontrol.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
