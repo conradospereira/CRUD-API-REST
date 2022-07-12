@@ -6,4 +6,4 @@ import org.springframework.stereotype.Repository;
 import com.example.mercadoteixeira.inventorycontrol.Model.Product;
 
 @Repository
-public interface ProductRepository extends JpaRepository<product, Long="id"> {}
+public interface ProductRepository extends JpaRepository<Product, Long> {}
