@@ -1,23 +1,10 @@
 package com.example.mercadoteixeira.inventorycontrol.Controller;
 
-import java.util.List;
-
+import org.hibernate.mapping.List;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-//import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.condition.ProducesRequestCondition;
-
+import org.springframework.web.bind.annotation.*;
 import com.example.mercadoteixeira.inventorycontrol.Model.Product;
 import com.example.mercadoteixeira.inventorycontrol.Repository.ProductRepository;
-import org.springframework.web.bind.annotation.PutMapping;
-
-
-//import com.example.mercadoteixeira.inventorycontrol.Repository.ProductRepository;
 
 @RestController
 @RequestMapping({"/product"})
@@ -31,7 +18,7 @@ public class ProductController {
 
     @GetMapping
     public List findAll() {
-        return repository.findAll();
+        return (List) repository.findAll();
     }
 
     @GetMapping
@@ -46,14 +33,19 @@ public class ProductController {
         return repository.save(product);
     }
 
-    //@PutMapping(value="/{id}")
-    //public ResponseEntity update(@PathVariable("id") long id, @RequestBody Product product){
+    @PutMapping(value="/{id}")
+    public ResponseEntity update(@PathVariable("id") long id, @RequestBody Product product){
 
-    //    return repository.findById(id)
-    //            .map(record -> {
-    //                record.setName(productDescription.getName());
-    //            });
-    //}
+        return repository.findById(id)
+                .map(record -> {
+                    record.setProductDescription(product.getProductDescription());
+                    record.setProductCode(product.getProductCode());
+                    record.setProductQuantity(product.getProductQuantity());
+                    record.setProductPrice(product.getProductPrice());
+                    Product updated = repository.save(record);
+                    return ResponseEntity.ok().body(updated);
+                }).orElse(ResponseEntity.notFound().build());
+    }
 
 
 }
