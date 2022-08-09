@@ -20,7 +20,7 @@ public class Product {
     private Long id;
 
     private String productDescription;
-    private Long productCode;
-    private Integer productQuantity;
-    private Float productPrice;
+    private String productCode;
+    private String productQuantity;
+    private String productPrice;
 }
